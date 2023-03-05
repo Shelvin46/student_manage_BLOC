@@ -32,7 +32,7 @@ class ListViewBloc extends Bloc<ListViewEvent, ListViewState> {
         final query = event.query!.toLowerCase();
         return name.contains(query);
       }).toList();
-      return emit(ListViewState(value: [], filterdValue: filteredValue));
+      return emit(ListViewState(value: value, filterdValue: filteredValue));
     });
   }
 }

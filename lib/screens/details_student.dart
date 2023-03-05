@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms/screens/widgets/update_alert.dart';
 import 'package:sms/update_bloc/update_bloc_bloc.dart';
 
 class DetailsOfStudent extends StatelessWidget {
@@ -10,12 +11,14 @@ class DetailsOfStudent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UpdateBlocBloc>(context).add(DetalisShow());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<UpdateBlocBloc>(context).add(DetalisShow());
+    });
+    //
 
     return BlocBuilder<UpdateBlocBloc, UpdateBlocState>(
       builder: (context, state) {
         if (state.values.length <= index) {
-          // Handle case where the index is out of bounds
           return Scaffold(
             body: Center(
               child: Text("Invalid index $index"),
@@ -28,6 +31,19 @@ class DetailsOfStudent extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: const Text("Student Details"),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return MyAlertDialog(
+                          index: index,
+                        );
+                      },
+                    ));
+                  },
+                  icon: const Icon(Icons.edit))
+            ],
           ),
           body: SafeArea(
             child: Column(

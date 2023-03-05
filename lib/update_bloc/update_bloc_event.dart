@@ -5,4 +5,6 @@ abstract class UpdateBlocEvent {}
 
 class DetalisShow extends UpdateBlocEvent {}
 
-class UpdateDetailsShow extends UpdateBlocEvent {}
+class UpdateCameraImage extends UpdateBlocEvent {}
+
+class UpdateGalleryImage extends UpdateBlocEvent {}

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) {
             return UpdateBlocBloc();
           },
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,10 +1,11 @@
 part of 'update_bloc_bloc.dart';
 
- class UpdateBlocState {
+class UpdateBlocState {
   List<StudentModel> values;
-  UpdateBlocState({required this.values});
+  XFile? image;
+  UpdateBlocState({required this.values,required this.image});
 }
 
 class UpdateBlocInitial extends UpdateBlocState {
-  UpdateBlocInitial() : super(values: []);
+  UpdateBlocInitial() : super(values: [],image: null);
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms/core/constants.dart';
 import 'package:sms/list_view/list_view_bloc.dart';
-import 'package:sms/model/dbfunction.dart';
 import 'package:sms/screens/details_student.dart';
 
 import '../debouncer/debouncer.dart';
@@ -67,12 +66,23 @@ class ListofDetails extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        // onTap: () => Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => DetailsOfStudent(
-                        //               index: index,
-                        //             ))),
+                        onTap: () {
+                          final originalIndex = state.value.indexOf(
+                            state.filterdValue[index],
+                          );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailsOfStudent(index: originalIndex)));
+                          //log(state.filterdValue.length.toString());
+
+                          final currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.focusedChild != null) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          }
+                        },
                         title: Text(state.filterdValue[index].name),
                         leading: CircleAvatar(
                             radius: 30,
@@ -104,9 +114,13 @@ class ListofDetails extends StatelessWidget {
                                     TextButton(
                                       child: const Text('Delete'),
                                       onPressed: () {
+                                        final originalIndex =
+                                            state.value.indexOf(
+                                          state.filterdValue[index],
+                                        );
                                         BlocProvider.of<ListViewBloc>(context)
                                             .add(ListStudentDelete(
-                                                index: index));
+                                                index: originalIndex));
 
                                         Navigator.of(context).pop();
                                       },
@@ -143,6 +157,11 @@ class ListofDetails extends StatelessWidget {
                             ),
                           ),
                         );
+                        final currentFocus = FocusScope.of(context);
+                        if (!currentFocus.hasPrimaryFocus &&
+                            currentFocus.focusedChild != null) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        }
                       },
                       title: Text(state.value[index].name),
                       leading: CircleAvatar(
@@ -175,6 +194,7 @@ class ListofDetails extends StatelessWidget {
                                     onPressed: () {
                                       BlocProvider.of<ListViewBloc>(context)
                                           .add(ListStudentDelete(index: index));
+                                      log(index.toString());
                                       WidgetsBinding.instance
                                           .addPostFrameCallback((_) {
                                         BlocProvider.of<ListViewBloc>(context)
