@@ -11,18 +11,19 @@ class UpdateBlocBloc extends Bloc<UpdateBlocEvent, UpdateBlocState> {
   UpdateBlocBloc() : super(UpdateBlocInitial()) {
     on<DetalisShow>((event, emit) {
       List<StudentModel>? value = model.values.toList();
-      return emit(UpdateBlocState(values: value, image: null));
+      return emit(UpdateBlocState(values: value, image: null, isNull: false));
     });
     on<UpdateCameraImage>((event, emit) async {
       XFile? result = await takePhoto(ImageSource.camera);
       List<StudentModel>? value = state.values;
-      return emit(UpdateBlocState(values: value, image: result));
+      return emit(UpdateBlocState(values: value, image: result, isNull: false));
     });
     on<UpdateGalleryImage>((event, emit) async {
       XFile? result = await takePhoto(ImageSource.gallery);
       List<StudentModel>? value = state.values;
-      return emit(UpdateBlocState(values: value, image: result));
+      return emit(UpdateBlocState(values: value, image: result, isNull: false));
     });
+
     // on<UpdateCameraImage>((event, emit) {});
   }
 }

@@ -11,6 +11,8 @@ class ListStudentDelete extends ListViewEvent {
 }
 
 class ListSearchView extends ListViewEvent {
-  String? query;
+  String query;
   ListSearchView({required this.query});
 }
+
+class NullView extends ListViewEvent {}

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms/core/constants.dart';
 import 'package:sms/list_view/list_view_bloc.dart';
+import 'package:sms/model/dbfunction.dart';
 import 'package:sms/screens/details_student.dart';
 
 import '../debouncer/debouncer.dart';
@@ -11,7 +12,6 @@ import '../debouncer/debouncer.dart';
 class ListofDetails extends StatelessWidget {
   ListofDetails({Key? key}) : super(key: key);
   final _debouncer = Debouncer(milliseconds: 1 * 1000);
-  int? iindex;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,9 @@ class ListofDetails extends StatelessWidget {
                     ListSearchView(query: value),
                   );
                 });
+                // if (!value.contains(model.values.first.name)) {
+                //   BlocProvider.of<ListViewBloc>(context).add(NullView());
+                // }
               },
               style: const TextStyle(
                 color: Colors.white,
@@ -75,7 +78,6 @@ class ListofDetails extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       DetailsOfStudent(index: originalIndex)));
-                          //log(state.filterdValue.length.toString());
 
                           final currentFocus = FocusScope.of(context);
                           if (!currentFocus.hasPrimaryFocus &&
@@ -138,6 +140,27 @@ class ListofDetails extends StatelessWidget {
                       return const Divider();
                     },
                     itemCount: state.filterdValue.length);
+                //                 else if (state.filterdValue.is) {
+                // // Show a progress indicator if a search is in progress
+                // return const Center(
+                //   child: CircularProgressIndicator(),
+                // );
+              }
+              //  else if () {
+              //   // Show a progress indicator if a search is in progress
+              //   return const Center(
+              //     child: CircularProgressIndicator(),
+              //   );
+              // }
+              // else if (state.isNull == true) {
+              //   return const Center(
+              //     child: Text("No data"),
+              //   );
+              // }
+              else if (state.isNull == true) {
+                return const Center(
+                  child: Text("No data"),
+                );
               } else if (state.value.isEmpty) {
                 return const Center(
                   child: Text("No data"),

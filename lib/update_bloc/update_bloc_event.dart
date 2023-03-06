@@ -8,3 +8,5 @@ class DetalisShow extends UpdateBlocEvent {}
 class UpdateCameraImage extends UpdateBlocEvent {}
 
 class UpdateGalleryImage extends UpdateBlocEvent {}
+
+class NullValue extends UpdateBlocEvent {}
